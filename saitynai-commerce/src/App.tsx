@@ -1,30 +1,21 @@
-import React, {useState} from 'react';
-import Message from './Message';
-import ListGroup from './components/ListGroup';
+import React, { useState } from 'react';
+import CreateCategoryButton from './components/CreateCategoryButton';
 
-function App(){
-  const [data, setData] = useState(null);
+function App() {
+  const [categoryResponse, setCategoryResponse] = useState({ status: 0, data: null });
 
-  const fetchDataFromAPI = async (link: string) => {
-    try {
-      const response = await fetch(`http://localhost:3001/api/${link}`); // Replace with your API endpoint
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const result = await response.json();
-      setData(result);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+  const handleCreateCategory = (response: any) => {
+    setCategoryResponse(response);
   };
 
   return (
     <div>
-      <button onClick={() => fetchDataFromAPI("categories")}>Fetch Data</button>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <CreateCategoryButton onCreateCategory={handleCreateCategory} />
+      <p>Response: {categoryResponse.status}</p>
+      <pre>{JSON.stringify(categoryResponse.data, null, 2)}</pre>
+      {/* Add more buttons/components here */}
     </div>
   );
 }
-
 
 export default App;

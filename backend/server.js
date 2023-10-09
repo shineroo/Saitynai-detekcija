@@ -1,42 +1,33 @@
 // i guess server.js is a good name?
 const express = require('express');
-const cors = require('cors');
 const mysql = require('mysql2');
+const cors = require('cors');
 const app = express();
 const port = 3001;
+const categoriesRouter = require("./routes/categories");
 
+app.use(express.json());
+app.use(
+    express.urlencoded({ 
+        extended: true,
+    })
+);
 app.use(cors());
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'commerce',
-})
 
-db.connect((err) => {
-    if (err) {
-        console.error('database connection error: ', err);
-    } else {
-        console.log('connected to mysql database');
-    }
+// API requests
+app.use("/api/categories", categoriesRouter);
+
+
+// error handler? (i dont get it)
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    console.error(err.message, err.stack);
+    res.status(statusCode).json({ message: err.message });
+    return;
 });
+
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`);
-})
-
-// API requests
-app.get('/api/categories', (req, res) => {    
-    const query = 'SELECT * FROM kategorijos'
-    db.query(query, (err, result) => {
-        if (err) {
-            console.error('error executing query: ', err);
-            res.status(500).json({ error: 'Internal server error'});
-            return;
-        }
-    
-
-        console.log(`GET request to /api/categories.`);
-        res.json(result);
-    });
 })
