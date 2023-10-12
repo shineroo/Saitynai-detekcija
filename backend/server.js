@@ -5,6 +5,8 @@ const cors = require('cors');
 const app = express();
 const port = 3001;
 const categoriesRouter = require("./routes/categories");
+const productsRouter = require("./routes/products");
+const reviewsRouter = require("./routes/reviews");
 
 app.use(express.json());
 app.use(
@@ -17,6 +19,8 @@ app.use(cors());
 
 // API requests
 app.use("/api/categories", categoriesRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/reviews", reviewsRouter);
 
 
 // error handler? (i dont get it)

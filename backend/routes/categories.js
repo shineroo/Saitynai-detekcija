@@ -12,6 +12,15 @@ router.get('/', async function (req, res, next) {
     }
 });
 
+router.get('/:id', async function (req, res, next) {
+  try {
+      res.json(await categories.get(req.params.id));
+  } catch (err) {
+      console.error(`error getting category `, err.message);
+      next(err);
+  }
+});
+
 router.post('/', async function (req, res, next) {
     try {
         res.json(await categories.create(req.body))
@@ -23,18 +32,18 @@ router.post('/', async function (req, res, next) {
 
 router.put('/:id', async function(req, res, next) {
     try {
-      res.json(await programmingLanguages.update(req.params.id, req.body));
+      res.json(await categories.update(req.params.id, req.body));
     } catch (err) {
-      console.error(`error while updating category`, err.message);
+      console.error(`error updating category`, err.message);
       next(err);
     }
 });
 
 router.delete('/:id', async function(req, res, next) {
     try {
-      res.json(await programmingLanguages.remove(req.params.id));
+      res.json(await categories.remove(req.params.id));
     } catch (err) {
-      console.error(`Error while deleting programming language`, err.message);
+      console.error(`error deleting category`, err.message);
       next(err);
     }
 });
