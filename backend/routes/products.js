@@ -12,9 +12,9 @@ router.get('/', async function (req, res, next) {
     }
 });
 
-router.get('/product/:id', async function (req, res, next) {
+router.get('/category/:id', async function (req, res, next) {
   try {
-      res.json(await reviews.getProductReviews(req.query.page, req.params.id));
+      res.json(await products.getCategoryProducts(req.query.page, req.params.id));
   } catch (err) {
       console.error(`error getting category products `, err.message);
       next(err);

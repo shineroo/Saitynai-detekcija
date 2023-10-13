@@ -19,7 +19,7 @@ async function getMultiple(page = 1) {
 async function getCategoryProducts(page = 1, categoryId) {
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM products WHERE fk_cateogry=${categoryId} LIMIT ${offset},${config.listPerPage}`
+        `SELECT * FROM products WHERE fk_category=${categoryId} LIMIT ${offset},${config.listPerPage}`
     );
     const data = helper.emptyOrRows(rows);
     const meta = {page};

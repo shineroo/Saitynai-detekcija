@@ -1,9 +1,10 @@
 # Saitynai-detekcija
+
 university class project
 
-“Detekcija” - E-commerce puslapis mažai įmonei, kuri parduoda apsaugos sistemas (Kameras, signalizacijas, kortelių skaitytuvus ir pnš.). Įmonė turi vieną parduotuvę, su šios sistemos pagalba bus galima parduoti produktus internetinėje svetainėje. 
+“Detekcija” - E-commerce puslapis mažai įmonei, kuri parduoda apsaugos sistemas (Kameras, signalizacijas, kortelių skaitytuvus ir pnš.). Įmonė turi vieną parduotuvę, su šios sistemos pagalba bus galima parduoti produktus internetinėje svetainėje.
 
-Vartotojas galės naršyti puslapį, išsirinkti jam tinkamą prekę naudojantis filtrais kataloge. Vartotojas galės pasirinkti mokėti banku, arba rezervuoti prekę, už kurią susimokės atvykus. 
+Vartotojas galės naršyti puslapį, išsirinkti jam tinkamą prekę naudojantis filtrais kataloge. Vartotojas galės pasirinkti mokėti banku, arba rezervuoti prekę, už kurią susimokės atvykus.
 
 Susikūręs paskyrą vartotojas galės pažymėti prekes įdėti į wishlistą ir gauti paštu pasiūlymus ir pranešimus, kai pažymetai prekei taikoma nuolaida. Nusipirkus produktą, prisijungęs vartotojas galės palikti atsiliepimą ant prekės ir ją įvertinti nuo 1 iki 5 žvaigždučių. Kilus neaiškumam, vartotojas gali susisiekti su savininku.
 
@@ -33,3 +34,6 @@ duomenu baze: MySQL<br>
 
 ![deployment diagram](https://github.com/shineroo/Saitynai-detekcija/assets/18055189/370a3bab-6f71-4eb3-840e-35110f825f01)
 
+<br>
+<H1>Documentation<H1>
+<a href="https://documenter.getpostman.com/view/30392108/2s9YR55Zcc">https://documenter.getpostman.com/view/30392108/2s9YR55Zcc</a>
