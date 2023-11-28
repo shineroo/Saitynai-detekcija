@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
-import CategoryButtons from './components/CategoryButtons';
-import ProductButtons from './components/ProductButtons';
-import ReviewButtons from './components/ReviewButtons';
 
-function App() {
-  const [response, setResponse] = useState({ status: 0, data: null });
-  
+import './App.css'
 
-  const handleResponse = (response: any) => {
-    setResponse(response);
-  };
-
-  return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: 15, paddingLeft: 10}}>
-        <label>so damn scuffed (for now!)</label>
-        <div style={{ flex: '0 0 50%', flexDirection: 'column'}}>
-        <CategoryButtons 
-          handleResponse={handleResponse} 
-        /> <br/>
-        <ProductButtons 
-          handleResponse={handleResponse}
-        /> <br/>
-        <ReviewButtons
-          handleResponse={handleResponse}
-        />
-        
-      </div>
-      <div style={{ flex: '1', marginRight: '50%'}}>
-        <p>Response: {response.status}</p>
-        <pre>{JSON.stringify(response.data, null, 2)}</pre>
-      </div>
-    </div>
-  );
+function navigate(url: string){
+  window.location.href = url;
 }
 
-export default App;
+async function auth(){
+  const response =await fetch('http://localhost:3001/api/request',{method:'post'});
+
+  const data = await response.json();
+  console.log(data);
+  navigate(data.url);
+
+}
+
+
+function App() {
+
+
+  return (
+    <>
+<h1>epiccc</h1>
+<h3>Google OAuth! AND IT WORKS!!! PROBABLY!</h3>
+
+<button className="btn-auth"  type="button" onClick={()=> auth()}>
+            <img className="btn-auth-img" src={"freepngimg.com/download/google/66274-school-google-pearl-button-up-sign-middle.png"} alt='google sign in'/>
+            </button>
+    </>
+  )
+}
+
+export default App

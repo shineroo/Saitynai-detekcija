@@ -7,6 +7,9 @@ const port = 3001;
 const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
 const reviewsRouter = require("./routes/reviews");
+const hierarchicalRouter = require("./routes/hierarchical");
+const oauthRouter = require("./routes/oauth");
+const requestRouter = require("./routes/request");
 
 app.use(express.json());
 app.use(
@@ -21,6 +24,9 @@ app.use(cors());
 app.use("/api/categories", categoriesRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/reviews", reviewsRouter);
+app.use("/api/category", hierarchicalRouter);
+app.use("/api/oauth", oauthRouter);
+app.use("/api/request", requestRouter);
 
 
 // error handler? (i dont get it)

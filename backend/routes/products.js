@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const products = require('../services/products');
 
-// GET CATEGORIES
-router.get('/', async function (req, res, next) {
+router.get('/category/:cat_id/product/:prod_id', async function (req, res, next) {
     try {
-        res.json(await products.getMultiple(req.query.page));
+        res.json(await products.getCategoryProduct(req.params.cat_id,req.params.prod_id));
     } catch (err) {
         console.error(`error getting products `, err.message);
         next(err);

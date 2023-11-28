@@ -2,18 +2,27 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getMultiple(page = 1) {
-    const offset = helper.getOffset(page, config.listPerPage);
+async function getCategoryProduct(category_id, product_id) {
     const rows = await db.query(
-        `SELECT * FROM products LIMIT ${offset},${config.listPerPage}`
+        `SELECT * FROM categories WHERE id=${category_id}`
     );
-    const data = helper.emptyOrRows(rows);
-    const meta = {page};
 
-    return {
-        data,
-        meta
-    }
+    if (rows.length === 0) {        
+        data = 'no category with this id'
+        return {data};
+    } 
+
+    const newrows = await db.query(
+        `SELECT * FROM products WHERE id=${product_id} and fk_category=${category_id}`
+    );
+    
+    if (rows.length === 0) {        
+        data = 'no product with this id'
+        return {data};
+    } 
+    data = newrows
+    
+    return data
 }
 
 async function getCategoryProducts(page = 1, categoryId) {
@@ -92,7 +101,7 @@ async function remove(id){
   }
 
 module.exports = {
-    getMultiple,
+    getCategoryProduct,
     getCategoryProducts,
     get,
     create,
