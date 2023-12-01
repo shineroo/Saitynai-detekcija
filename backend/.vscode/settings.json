@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/bac86640-d975-4868-aad8-42bf0f509724/resourceGroups/commerce-backend-api/providers/Microsoft.Web/sites/commerce-backend-api",
+    "appService.deploySubpath": "."
+}

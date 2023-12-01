@@ -3,7 +3,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
-const port = 3001;
+const port = 8080;
 const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
 const reviewsRouter = require("./routes/reviews");
@@ -28,6 +28,13 @@ app.use("/api/category", hierarchicalRouter);
 app.use("/api/oauth", oauthRouter);
 app.use("/api/request", requestRouter);
 
+app.get('/health', (req, res) => {
+    res.send('Backend server is running');
+});
+
+app.get('/', (req, res) => {
+    res.send('Hello:]');
+});
 
 // error handler? (i dont get it)
 app.use((err, req, res, next) => {
