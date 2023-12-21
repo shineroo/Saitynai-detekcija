@@ -14,7 +14,6 @@ async function auth(){
 
 }
 
-
 function App() {
   const [responseData, setResponseData] = useState<any>(null); // State to hold response data
 
