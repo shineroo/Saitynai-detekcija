@@ -12,7 +12,7 @@ router.get('/', async function (req, res, next) {
     }
 });
 
-router.get('/product/:id', async function (req, res, next) {
+router.get('/products/:id', async function (req, res, next) {
   try {
       res.json(await reviews.getProductReviews(req.query.page, req.params.id));
   } catch (err) {

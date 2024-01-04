@@ -1,52 +1,63 @@
 import React, { useState } from 'react';
-import './App.css'
-
-function navigate(url: string){
-  window.location.href = url;
-}
-
-async function auth(){                                                                        
-  const response =await fetch('https://commerce-backend-api.azurewebsites.net/api/request',{method:'post'});
-
-  const data = await response.json();
-  console.log(data);
-  navigate(data.url);
-
-}
+import './css/App.css'
+import Navbar from './components/Navbar';
+import Catalog from './pages/Catalog';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Contacts from './pages/Contacts';
+import Home from './pages/Home';
+import ProductPage from './pages/ProductPage'
+import Auth from './pages/Auth';
+import SignIn from './pages/SignIn';
+import Profile from './pages/Profile';
+import SignUp from './pages/SignUp';
+import Admin from './pages/Admin';
 
 function App() {
-  const [responseData, setResponseData] = useState<any>(null); // State to hold response data
-
-  async function test() {
-    try {
-      const response = await fetch('https://commerce-backend-api.azurewebsites.net/', {
-        method: 'GET'
-      });
-
-      const data = await response.json();
-      console.log(data);
-      setResponseData(data); // Set response data in state
-    } catch (error) {
-      console.error('Error fetching data??:', error);
-      setResponseData(null); // Reset response data on error
-    }
+  let component
+  
+  const path = window.location.pathname.split("/")
+  switch(path[1]) {
+    case "":
+      component = <Home/>
+      break
+    case "catalog":      
+      component = <Catalog/>
+      break
+    case "privacy":
+      component = <PrivacyPolicy/>
+      break
+    case "contacts":
+      component = <Contacts/>
+      break
+    case "product":
+      component = <ProductPage product_id={parseInt(path[2])}/>
+      break
+    case "auth":
+      component = <Auth token={parseInt(path[2])}/>
+      break
+    case "login": // restrict if logged in
+      component = <SignIn/>
+      break
+    case "register":
+      component = <SignUp/>
+      break
+    case "profile": // restrict if not logged in
+      component = <Profile/>
+      break
+    case "admin": // restrict if not administrator
+      component = <Admin/>
+      break
+    default:
+      component = <Home/>
+      break
   }
 
   return (
     <>
-      <h1>epiccc</h1>
-      <h3>Google OAuth! AND IT WORKS!!! PROBABLY!</h3>
-
-      <button className="btn-auth"  type="button" onClick={()=> auth()}>
-      <img className="btn-auth-img" src={"freepngimg.com/download/google/66274-school-google-pearl-button-up-sign-middle.png"} alt='google sign in'/>
-      </button>
-
-      {responseData}
-
-      {/* Button to invoke test function */}
-      <button className="btn-auth" type="button" onClick={test}>
-        Test API Call
-      </button>
+      <Navbar/>
+      <div className='page-container'>
+        {component}
+      </div>
     </>
   )
 }

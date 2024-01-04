@@ -8,8 +8,12 @@ const categoriesRouter = require("./routes/categories");
 const productsRouter = require("./routes/products");
 const reviewsRouter = require("./routes/reviews");
 const hierarchicalRouter = require("./routes/hierarchical");
+const authRouter = require("./routes/auth");
 const oauthRouter = require("./routes/oauth");
 const requestRouter = require("./routes/request");
+
+const jwt = require('jsonwebtoken');
+
 
 app.use(express.json());
 app.use(
@@ -17,23 +21,44 @@ app.use(
         extended: true,
     })
 );
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
 
 
 // API requests
 app.use("/api/categories", categoriesRouter);
 app.use("/api/products", productsRouter);
 app.use("/api/reviews", reviewsRouter);
-app.use("/api/category", hierarchicalRouter);
+app.use("/api/categories", hierarchicalRouter);
 app.use("/api/oauth", oauthRouter);
 app.use("/api/request", requestRouter);
+app.use("/api/auth", authRouter);
 
 app.get('/health', (req, res) => {
     res.send('Backend server is running');
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello:]');
+// i have brain damage
+app.get('/api/authenticated', (req, res) => {
+    const token = req.headers.authorization;
+    console.log("This guy wants to know if he's in")
+    console.log("bro said my token is " + token)
+    if (!token) {
+        console.log("the fool actually forgot his token")
+      return res.json({ authenticated: false });
+    }
+  
+    try {
+        const decoded = jwt.verify(token.split(" ")[1], "secret");
+        console.log(`looks good. role: ${decoded.role}`)
+        res.json({ authenticated: true, role: decoded.role, name: decoded.name, picture: decoded.picture });
+    } catch (error) {
+        console.log("what a moron. " + error)
+        res.json({ authenticated: false });
+    }
+    
 });
 
 // error handler? (i dont get it)

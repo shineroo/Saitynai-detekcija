@@ -38,6 +38,30 @@ async function getCategoryProduct(category_id, product_id) {
     return data
 }
 
+async function getCategoryProducts(page = 1, categoryId) {
+    const offset = helper.getOffset(page, config.listPerPage);
+    const category_rows = await db.query(
+        `SELECT * FROM categories where id=${categoryId} LIMIT 1`
+    )
+    const category_data = helper.emptyOrRows(category_rows);
+    if (category_data.length === 0) {
+        data = 'no category with this id';
+        return {data};
+    }
+
+    const product_rows = await db.query(
+        `SELECT * FROM products WHERE fk_category=${categoryId} LIMIT ${offset},${config.listPerPage}`
+    );
+    const product_data = helper.emptyOrRows(product_rows);
+    const meta = {page};
+
+    return {
+        category_data,
+        product_data,
+        meta
+    }
+}
+
 async function getCategoryProductReview(category_id, product_id, review_id) {
     const rows = await db.query(
         `SELECT * FROM categories WHERE id=${category_id}`
@@ -68,5 +92,6 @@ async function getCategoryProductReview(category_id, product_id, review_id) {
 module.exports = {
     getCategory,
     getCategoryProduct,
+    getCategoryProducts,
     getCategoryProductReview
 }

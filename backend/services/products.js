@@ -2,33 +2,10 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getCategoryProduct(category_id, product_id) {
-    const rows = await db.query(
-        `SELECT * FROM categories WHERE id=${category_id}`
-    );
-
-    if (rows.length === 0) {        
-        data = 'no category with this id'
-        return {data};
-    } 
-
-    const newrows = await db.query(
-        `SELECT * FROM products WHERE id=${product_id} and fk_category=${category_id}`
-    );
-    
-    if (rows.length === 0) {        
-        data = 'no product with this id'
-        return {data};
-    } 
-    data = newrows
-    
-    return data
-}
-
-async function getCategoryProducts(page = 1, categoryId) {
+async function getProducts(page = 1) {
     const offset = helper.getOffset(page, config.listPerPage);
     const rows = await db.query(
-        `SELECT * FROM products WHERE fk_category=${categoryId} LIMIT ${offset},${config.listPerPage}`
+        `SELECT * FROM products LIMIT ${offset},${config.listPerPage}`
     );
     const data = helper.emptyOrRows(rows);
     const meta = {page};
@@ -101,8 +78,7 @@ async function remove(id){
   }
 
 module.exports = {
-    getCategoryProduct,
-    getCategoryProducts,
+    getProducts,
     get,
     create,
     update,

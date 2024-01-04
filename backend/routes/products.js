@@ -2,18 +2,9 @@ const express = require('express');
 const router = express.Router();
 const products = require('../services/products');
 
-router.get('/category/:cat_id/product/:prod_id', async function (req, res, next) {
-    try {
-        res.json(await products.getCategoryProduct(req.params.cat_id,req.params.prod_id));
-    } catch (err) {
-        console.error(`error getting products `, err.message);
-        next(err);
-    }
-});
-
-router.get('/category/:id', async function (req, res, next) {
+router.get('/', async function (req, res, next) {
   try {
-      res.json(await products.getCategoryProducts(req.query.page, req.params.id));
+      res.json(await products.getProducts(req.query.page));
   } catch (err) {
       console.error(`error getting category products `, err.message);
       next(err);
