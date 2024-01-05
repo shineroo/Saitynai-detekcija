@@ -15,8 +15,7 @@ export default function Auth(props: any) {
             } catch (erorr) {
                 console.log("failed to decode")
             }            
-        }
-         
+        }         
         userAuthenticated();
     }, [])
 

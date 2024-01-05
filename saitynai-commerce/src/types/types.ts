@@ -3,7 +3,8 @@ export interface Product {
     image: string;
     name: string;
     description: string;
-    category_id: number
+    fk_category: number;
+    price: number;
 }
 
 export interface Category {
@@ -12,6 +13,18 @@ export interface Category {
 }
 
 export interface Userdata {
-    name: string;
-    image: string;
+    given_name: string;
+    family_name: string;
+    picture: string;
+    id: number;
+    email: string;
+    role: string;
+    password: string
+}
+
+export interface Review {
+    id: number;
+    author: string;
+    text: string;
+    rating: number;
 }

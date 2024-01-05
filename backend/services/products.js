@@ -16,6 +16,20 @@ async function getProducts(page = 1) {
     }
 }
 
+async function getReviews(id, page = 1) {
+    const offset = helper.getOffset(page, config.listPerPage);
+    const rows = await db.query(
+        `SELECT * FROM reviews where fk_product = ${id} LIMIT ${offset},${config.listPerPage}`
+    );
+    const data = helper.emptyOrRows(rows);
+    const meta = {page};
+
+    return {
+        data,
+        meta
+    }
+}
+
 async function get(id) {
     const rows = await db.query(
         `SELECT * FROM products WHERE id=${id}`
@@ -33,9 +47,9 @@ async function get(id) {
 async function create(product) {
     const result = await db.query(
         `INSERT INTO products
-        (name, image, description, fk_category)
+        (name, image, description, fk_category, price)
         VALUES
-        ('${product.name}', '${product.image}', '${product.description}', ${product.fk_category})`
+        ('${product.name}', '${product.image}', '${product.description}', ${product.fk_category}, ${product.price})`
     );
 
     let message = 'error creating product';
@@ -50,7 +64,7 @@ async function create(product) {
 async function update(id, product) {
     const result = await db.query(
         `UPDATE products
-        SET name='${product.name}', image='${product.image}', description='${product.description}', fk_category=${product.fk_category}
+        SET name='${product.name}', image='${product.image}', description='${product.description}', fk_category=${product.fk_category}, price=${product.price}
         WHERE id=${id}`
     )
 
@@ -79,6 +93,7 @@ async function remove(id){
 
 module.exports = {
     getProducts,
+    getReviews,
     get,
     create,
     update,

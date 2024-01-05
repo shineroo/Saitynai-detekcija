@@ -6,7 +6,7 @@ router.get('/:cat_id/', async function (req, res, next) {
     try {
         res.json(await hierarchical.getCategory(req.params.cat_id));
     } catch (err) {
-        console.error(`error getting products `, err.message);
+        console.error(`error getting category `, err.message);
         next(err);
     }
 });

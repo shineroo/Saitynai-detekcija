@@ -47,6 +47,7 @@ export default function Catalog(props: any) {
         <h1>This is my catalog smiles</h1>
         <div className='catalog'>
             <div className='category-list'>
+                <a href="/catalog">All products</a>
                 {categories.map((category) => (
                     <CategorySelect
                         id={category.id}
@@ -61,7 +62,8 @@ export default function Catalog(props: any) {
                         name={product.name} 
                         image={product.image}
                         description={product.description}
-                        category_id={product.category_id}                    
+                        fk_category={product.fk_category}
+                        price={product.price}                    
                     />
                 ))}
             </div>

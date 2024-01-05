@@ -24,10 +24,10 @@ export default function Navbar() {
             <li>
                 <a href="/privacy">Privacy Policy</a>
             </li>
-            {role && ( //role is set           
+            {role && ( //role is set      //<img src={picture} referrerPolicy="no-referrer" height={30}/>      
             <li>    
                 <a href="/profile">Profile</a>            
-                <img src={picture} referrerPolicy="no-referrer" height={30}/>
+                
             </li>
             )}
             {role ? ( //role is set           

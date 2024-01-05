@@ -1,7 +1,31 @@
+import ProfileView from "../components/ProfileView"
+
 export default function Profile() {
+    let component
+    const path = window.location.pathname.split("/")
+    switch(path[2]) {
+        case "edit":
+            //component = <AdminCategories/>
+            break
+        case "orders":
+            //component = <AdminProducts/>
+            break
+        default:
+            component = <ProfileView/>
+            break
+    }
+
     return <>
-        {localStorage['name']}
-        {localStorage['picture']}
-        {localStorage['role']}
+        <div className="profile-panel">
+            <ul>
+                <li>
+                    <a href="/profile/edit">Edit Profile Information</a>
+                </li>
+                <li>
+                    <a href="/profile/orders">View Orders</a>
+                </li>
+            </ul>
+        </div>
+        {component}
     </>
 }

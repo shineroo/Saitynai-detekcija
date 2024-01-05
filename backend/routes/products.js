@@ -20,6 +20,15 @@ router.get('/:id', async function (req, res, next) {
   }
 });
 
+router.get('/:id/reviews', async function (req, res, next) {
+  try {
+      res.json(await products.getReviews(req.params.id, req.query.page));
+  } catch (err) {
+      console.error(`error getting product `, err.message);
+      next(err);
+  }
+});
+
 router.post('/', async function (req, res, next) {
     try {
         res.json(await products.create(req.body))

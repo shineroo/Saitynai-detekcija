@@ -48,7 +48,7 @@ router.post('/register', async function (req, res, next) {
 
 });
 
-router.get('/user', (req, res) => {
+router.get('/', (req, res) => {
     const token = req.headers.authorization;
     console.log("This guy wants to know if he's in")
     console.log("bro said my token is " + token)

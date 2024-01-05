@@ -32,6 +32,7 @@ export default function SignIn() {
             localStorage['name'] = data.given_name + " " + data.family_name;
             localStorage['picture'] = data.picture;
             localStorage['role'] = data.role;
+            localStorage['id'] = data.id;
 
             window.location.href = "/";
         }

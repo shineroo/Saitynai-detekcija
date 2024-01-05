@@ -11,6 +11,7 @@ const hierarchicalRouter = require("./routes/hierarchical");
 const authRouter = require("./routes/auth");
 const oauthRouter = require("./routes/oauth");
 const requestRouter = require("./routes/request");
+const usersRouter = require("./routes/users");
 
 const jwt = require('jsonwebtoken');
 
@@ -35,6 +36,7 @@ app.use("/api/categories", hierarchicalRouter);
 app.use("/api/oauth", oauthRouter);
 app.use("/api/request", requestRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/users", usersRouter);
 
 app.get('/health', (req, res) => {
     res.send('Backend server is running');
