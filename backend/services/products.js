@@ -8,7 +8,12 @@ async function getProducts(page = 1) {
         `SELECT * FROM products LIMIT ${offset},${config.listPerPage}`
     );
     const data = helper.emptyOrRows(rows);
-    const meta = {page};
+    
+    const allRows = await db.query(
+        `SELECT * FROM products`
+    )
+    const product_count = allRows.length;
+    const meta = {page, product_count};
 
     return {
         data,

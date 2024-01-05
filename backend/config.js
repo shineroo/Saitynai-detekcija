@@ -5,7 +5,7 @@ const config = {
         database: "commerce",
         connectTimeout: 60000
     },
-    listPerPage: 10,
+    listPerPage: 12,
 };
 
 module.exports = config;

@@ -5,28 +5,36 @@ import CategorySelect from '../components/CategorySelect';
 
 
 export default function Catalog(props: any) {
+    const [page, setPage] = useState(1);
+    const [productCount, setProductCount] = useState(0);
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     
     const path = window.location.pathname.split("/")
 
+    function extractPageFromURL() {
+        const queryParams = new URLSearchParams(window.location.search);
+        return queryParams.get('page');
+    }
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                if (path[2] != null) {
-                    const product_response = await fetch(`http://localhost:8080/api/categories/${path[2]}/products`);
-                    if (!product_response.ok) {
-                        throw new Error('response was not ok');
-                    }
-                    const product_data = await product_response.json();
-                    setProducts(product_data.product_data);
-                } else {
-                    const product_response = await fetch('http://localhost:8080/api/products');
-                    if (!product_response.ok) {
-                        throw new Error('response was not ok');
-                    }
-                    const product_data = await product_response.json();
-                    setProducts(product_data.data);
+                const categoryPath = path[2];
+                const apiUrl = categoryPath ? `http://localhost:8080/api/categories/${categoryPath}/products?page=${page}` : `http://localhost:8080/api/products?page=${page}`;
+
+                try {
+                const product_response = await fetch(apiUrl);
+                if (!product_response.ok) {
+                    throw new Error('response was not ok');
+                }
+                const product_data = await product_response.json();
+
+                const productsData = categoryPath ? product_data.product_data : product_data.data;
+                setProducts(productsData);
+                setProductCount(product_data.meta.product_count);
+                } catch (error) {
+                console.error('catalog - error fetching products: ', error);
                 }
                 
 
@@ -40,8 +48,18 @@ export default function Catalog(props: any) {
                 console.error('catalog - error fetching products: ', error);
             }
         }
+        var currentPage = extractPageFromURL();
+        if (currentPage != null) {
+            setPage(parseInt(currentPage));
+        }
         fetchProducts();
-    }, [])
+    }, [page])
+
+    const totalPages = Math.ceil(productCount / 12); 
+    const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
+    const loopWithCurlyBraces = pageNumbers.map((pageNumber) => {
+        return <a href={window.location.pathname + `?page=${pageNumber}`}>{pageNumber}</a>;
+      });
 
     return <>
         <h1>This is my catalog smiles</h1>
@@ -68,6 +86,8 @@ export default function Catalog(props: any) {
                 ))}
             </div>
         </div>
-        
+        <div className='catalog-pages'>
+            {loopWithCurlyBraces}
+        </div>
     </>
 }

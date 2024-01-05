@@ -7,7 +7,7 @@ export default function ProductInfo(props: Product) {
     return <>
         <div className="product-thumbnail">
             <p>{name}</p>
-            <p>{image}</p>
+            <img src={image} width={270}/>
             <p>{description}</p>
         </div>
     </>

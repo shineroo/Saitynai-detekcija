@@ -19,7 +19,7 @@ export default function Profile() {
         <div className="profile-panel">
             <ul>
                 <li>
-                    <a href="/profile/edit">Edit Profile Information</a>
+                    <a href="/profile">View Profile Information</a>
                 </li>
                 <li>
                     <a href="/profile/orders">View Orders</a>

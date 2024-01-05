@@ -7,7 +7,7 @@ export default function ProductThumbnail(props: Product) {
     return <>
         <div className="product-thumbnail">
             <p>{name}</p>
-            <p>{image}</p>
+            <img src={image} width={270}/>
             <a href={href}>BUY NOW!</a>
         </div>
     </>

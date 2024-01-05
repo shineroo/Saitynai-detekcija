@@ -1,14 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Category, Product } from "../types/types";
 
 export default function AdminProduct(props: Product) {
-    const [name, setName] = useState(props.name)
-    const [image, setImage] = useState(props.image)
-    const [description, setDescription] = useState(props.description)
-    const [price, setPrice] = useState(props.price)
-    const [category, setCategory] = useState(props.fk_category)
+    const [category, setCategory] = useState("")
     
     const apiUrl = 'http://localhost:8080/api/products';
+    const href = "/admin/products/" + props.id;
 
     const handleApiCall = async (method: string, urlExtension = '', bodyData: { 
         name: string, 
@@ -39,6 +36,22 @@ export default function AdminProduct(props: Product) {
         console.error('Error:', error);
         }
     };
+
+    useEffect(() => {
+        const fetchCategory = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/categories/${props.fk_category}`);
+                if (!response.ok) {
+                    throw new Error('response was not ok');
+                }
+                const data = await response.json();
+                setCategory(data.data[0].name);
+            } catch (error) {
+                console.error('admin - error fetching category: ', error);
+            }
+        }
+        fetchCategory();
+    }, [])
     
     return <>
         <tr>
@@ -46,31 +59,23 @@ export default function AdminProduct(props: Product) {
                 {props.id}
             </th>
             <th>
-                <input value={name} className="form-control" onChange={ev => setName(ev.target.value)}></input>
+                <img src={props.image} width={100}/>
             </th>
             <th>
-                <input value={description} className="form-control" onChange={ev => setDescription(ev.target.value)}></input>
+                {props.name}
             </th>
             <th>
-                <input value={image} className="form-control" onChange={ev => setImage(ev.target.value)}></input>
+                {props.description.length > 70 ? `${props.description.substring(0, 70)}...` : props.description}
             </th>
             <th>
-                <input value={price} className="form-control" type="number" onChange={ev => setPrice(parseFloat(ev.target.value))}></input>
+                {props.price}
             </th>
             <th>
-                <input value={category} className="form-control" type="number" onChange={ev => setCategory(parseInt(ev.target.value))}></input>
+                {category}
             </th>
 
             <th>
-                <button className="btn btn-warning" onClick={() => 
-                    handleApiCall('PUT', `${props.id}`, { 
-                        name: name,
-                        description: description,
-                        image: image,
-                        price: price,
-                        fk_category: category,
-                    })}>Update
-                </button>
+                <a className="btn btn-warning" href={href}>Edit</a>
             </th>
             <th>
                 <button className="btn btn-danger" onClick={() => 
