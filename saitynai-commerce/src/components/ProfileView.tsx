@@ -27,9 +27,11 @@ export default function ProfileView() {
     return <>
         {!googleAccount &&
             users.map((user) => (
-                <div>
-                    
-                    <ul>
+                <div style={{height: "100%"}}>                    
+                    <ul className="profile-view">
+                        <li>
+                            <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"/>
+                        </li>
                         <li>
                             Name: {user.given_name} {user.family_name}
                         </li>
@@ -47,9 +49,11 @@ export default function ProfileView() {
             ))
         }
         {googleAccount &&
-            <div>
-                <img src={localStorage['picture']} referrerPolicy="no-referrer" height={100}/> 
-                <ul>
+            <div style={{height: "100%"}}>                    
+                <ul className="profile-view">
+                    <li>
+                        <img src={localStorage['picture']}/>
+                    </li>
                     <li>
                         Name: {localStorage['name']}
                     </li>
@@ -58,4 +62,4 @@ export default function ProfileView() {
         }
         
     </>
-}
+} // https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg

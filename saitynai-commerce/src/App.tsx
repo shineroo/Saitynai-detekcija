@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './css/App.css'
-import Navbar from './components/Navbar';
 import Catalog from './pages/Catalog';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Contacts from './pages/Contacts';
@@ -11,6 +10,8 @@ import SignIn from './pages/SignIn';
 import Profile from './pages/Profile';
 import SignUp from './pages/SignUp';
 import Admin from './pages/Admin';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   let component
@@ -54,9 +55,12 @@ function App() {
 
   return (
     <>
-      <Navbar/>
-      <div className='page-container'>
-        {component}
+      <div id="flex-container">
+      <Header/>
+      <div className='content'>
+      {component}
+      </div>
+      <Footer/>
       </div>
     </>
   )

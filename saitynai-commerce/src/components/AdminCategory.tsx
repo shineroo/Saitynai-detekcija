@@ -40,11 +40,13 @@ export default function AdminCategory(props: Category) {
             </th>
             <th>
                 <button className="btn btn-warning" onClick={() => 
-                    handleApiCall('PUT', `${props.id}`, { name: name})}>Update</button>
+                    handleApiCall('PUT', `${props.id}`, { name: name})}>Update
+                </button>
             </th>
             <th>
-            <button className="btn btn-danger" onClick={() => 
-                    handleApiCall('DELETE', `${props.id}`)}>Delete</button>
+                <button className="btn btn-danger" onClick={() => 
+                    handleApiCall('DELETE', `${props.id}`)}>Delete
+                </button>
             </th>
         </tr>
     </>

@@ -1,4 +1,4 @@
-import { Userdata } from "../types/types";
+
 
 export async function Authenticate(email: string, password: string) {
     const response = await fetch('http://localhost:8080/api/auht/login', {
@@ -21,4 +21,8 @@ export async function GoogleOAuth() {
     const data = await response.json();
     console.log(data);
     window.location.href = data.url;
+}
+
+export async function Fetch() {
+
 }

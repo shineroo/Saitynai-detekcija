@@ -41,18 +41,20 @@ export default function SignUp() {
     return <>
         <div className="login-form">
             <label>Email</label>
-            <input type="text" id="name" value={email} onChange={ev => setEmail(ev.target.value)}></input>
+            <input type="text" id="name" value={email} onChange={ev => setEmail(ev.target.value)} className="form-control"></input>
             <label>Password</label>
-            <input type="text" id="password" value={password} onChange={ev => setPassword(ev.target.value)}></input>
+            <input type="text" id="password" value={password} onChange={ev => setPassword(ev.target.value)} className="form-control"></input>
             <label>Name</label>
-            <input type="text" id="given_name" value={givenName} onChange={ev => setGivenName(ev.target.value)}></input>
+            <input type="text" id="given_name" value={givenName} onChange={ev => setGivenName(ev.target.value)} className="form-control"></input>
             <label>Last name</label>
-            <input type="text" id="family_name" value={familyName} onChange={ev => setFamilyName(ev.target.value)}></input>
+            <input type="text" id="family_name" value={familyName} onChange={ev => setFamilyName(ev.target.value)} className="form-control"></input>
             <button onClick={() => Register(email, password, givenName, familyName)} className="btn btn-primary">Log in</button>
         </div>        
         {error} <br/>
+        <center>
         Already have an account? <a href="/login">Sign in here</a>
-        <br/>
-        <button onClick={GoogleOAuth} className="btn btn-primary">Sign in with Google</button>
+        <br/><br/>
+        <button onClick={GoogleOAuth} className="btn btn-outline-primary google-button">Sign in with Google  <img src="https://cdn.iconscout.com/icon/free/png-256/free-google-160-189824.png?f=webp&w=256" width={40}/>
+            </button></center>
     </>
 }

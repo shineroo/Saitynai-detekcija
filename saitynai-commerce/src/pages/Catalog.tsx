@@ -2,9 +2,13 @@ import { useEffect, useState } from 'react';
 import ProductThumbnail from '../components/ProductThumbnail'
 import { Category, Product } from '../types/types';
 import CategorySelect from '../components/CategorySelect';
+import { Col, Container, Row } from 'react-bootstrap';
 
 
 export default function Catalog(props: any) {
+    var state = {
+        currentPage: 1
+    };
     const [page, setPage] = useState(1);
     const [productCount, setProductCount] = useState(0);
     const [products, setProducts] = useState<Product[]>([]);
@@ -57,9 +61,61 @@ export default function Catalog(props: any) {
 
     const totalPages = Math.ceil(productCount / 12); 
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-    const loopWithCurlyBraces = pageNumbers.map((pageNumber) => {
-        return <a href={window.location.pathname + `?page=${pageNumber}`}>{pageNumber}</a>;
-      });
+    const loopWithCurlyBraces = pageNumbers.map((pageNumber) => {        
+        return <li className='page-item'><a href={window.location.pathname + `?page=${pageNumber}`} className='page-link'>{pageNumber}</a></li>;
+    
+    
+    });
+
+    return <>
+        <center><h1>Catalog</h1></center>
+        <Container>
+            <Row style={{display: 'flex', justifyContent: 'center' }}>
+                <Col xs={2} className='category-list'>
+                    <h3>Categories</h3>
+                    <a href="/catalog">All products</a>
+                    {categories.map((category) => (
+                        <CategorySelect
+                            id={category.id}
+                            name={category.name}
+                        />
+                    ))}
+                </Col>
+                <Col>
+                    <div className='product-list'>
+                    {products.map((product) => (
+                        <ProductThumbnail 
+                            id={product.id} 
+                            name={product.name} 
+                            image={product.image}
+                            description={product.description}
+                            fk_category={product.fk_category}
+                            price={product.price}                    
+                        />
+                        
+                    ))}
+                    </div>
+                </Col>
+            </Row>
+        </Container>
+
+        <div className='catalog-pages'>
+            <ul className="pagination">
+                {loopWithCurlyBraces}
+            </ul>
+        </div>
+
+    </>
+
+/*
+<ProductThumbnail 
+    id={product.id} 
+    name={product.name} 
+    image={product.image}
+    description={product.description}
+    fk_category={product.fk_category}
+    price={product.price}                    
+/>
 
     return <>
         <h1>This is my catalog smiles</h1>
@@ -90,4 +146,5 @@ export default function Catalog(props: any) {
             {loopWithCurlyBraces}
         </div>
     </>
+    */
 }

@@ -3,6 +3,10 @@ import { Product, Category, Review } from '../types/types';
 import ProductInfo from '../components/ProductInfo';
 import ProductReview from '../components/ProductReview';
 import ReviewWrite from '../components/ReviewWrite';
+import { Container, Row } from 'reactstrap';
+import { Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProductPage(props: any) {
     const [products, setProducts] = useState<Product[]>([]);
@@ -39,36 +43,52 @@ export default function ProductPage(props: any) {
         fetchReviews();
     }, [])
 
+    function reviewAverage() {
+        var total = 0;
+        const reviewCount = reviews.length
+        reviews.forEach((review) => {
+            total += review.rating;
+        });
+        return total / reviewCount;
+    }
+
     return <>
-        {products.map((product) => (
-            <ProductInfo 
-                id={product.id} 
-                name={product.name} 
-                image={product.image}
-                description={product.description}
-                fk_category={product.fk_category}
-                price={product.price}                    
-            />
-        ))}
-        
-        <div className="review-panel">
-            {reviews.map((review) => (
-                <ProductReview
-                    id = {420}
-                    author = {review.author}
-                    text = {review.text}
-                    rating = {review.rating}
+        <Container>
+            {products.map((product) => (
+                <ProductInfo 
+                    id={product.id} 
+                    name={product.name} 
+                    image={product.image}
+                    description={product.description}
+                    fk_category={product.fk_category}
+                    price={product.price}                    
                 />
             ))}
-        </div>
-        
-        {localStorage['role'] != null &&
-            <>
-                {products.map((product) => (
-                    <ReviewWrite />
-                ))}            
-            </>
+            <h3>Reviews</h3>
+            {reviews.length != 0 &&
+                <>
+                    <FontAwesomeIcon icon={faStar} color='#edc939'/> {reviewAverage()} Average
+                </>
+            }
+            <div className="review-panel">
+                {reviews.map((review) => (
+                    <ProductReview
+                        id = {420}
+                        author = {review.author}
+                        text = {review.text}
+                        rating = {review.rating}
+                    />
+                ))}
+            </div>
             
-        }
+            {localStorage['role'] != null &&
+                <>
+                    {products.map((product) => (
+                        <ReviewWrite />
+                    ))}            
+                </>
+                
+            }
+        </Container>
     </>
-}
+}0

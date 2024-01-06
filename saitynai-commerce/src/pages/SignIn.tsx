@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GoogleOAuth, Authenticate } from "../services/ApiHelper"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -41,15 +42,16 @@ export default function SignIn() {
     return <>
         <div className="login-form">
             <label>Email</label>
-            <input type="text" id="name" value={email} onChange={ev => setEmail(ev.target.value)}></input>
+            <input type="text" id="name" value={email} onChange={ev => setEmail(ev.target.value)} className="form-control"></input>
             <label>Password</label>
-            <input type="text" id="password" value={password} onChange={ev => setPassword(ev.target.value)}></input>
+            <input type="text" id="password" value={password} onChange={ev => setPassword(ev.target.value)} className="form-control"></input>
             <button onClick={() => Authenticate(email, password)} className="btn btn-primary">Sign in</button>
         </div>
         
         {error} <br/>
-        Don't have an account? <a href="/register">Register here</a>
-        <br/>
-        <button onClick={GoogleOAuth} className="btn btn-primary">Sign in with Google</button>
+        <center>Don't have an account? <a href="/register">Register here</a>
+        <br/> <br/>
+        <button onClick={GoogleOAuth} className="btn btn-outline-primary google-button">Sign in with Google  <img src="https://cdn.iconscout.com/icon/free/png-256/free-google-160-189824.png?f=webp&w=256" width={40}/>
+            </button></center>
     </>
 }

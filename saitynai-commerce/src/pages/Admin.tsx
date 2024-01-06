@@ -26,7 +26,7 @@ export default function  Admin() {
 
     return <>
         <div className="admin-panel">
-            <div className="admin-panel-select">
+            <div className="admin-panel-select">.
                 <ul>
                     <li>
                         <a href="/admin/categories">Categories</a>
