@@ -48,7 +48,7 @@ export default function SignUp() {
             <input type="text" id="given_name" value={givenName} onChange={ev => setGivenName(ev.target.value)} className="form-control"></input>
             <label>Last name</label>
             <input type="text" id="family_name" value={familyName} onChange={ev => setFamilyName(ev.target.value)} className="form-control"></input>
-            <button onClick={() => Register(email, password, givenName, familyName)} className="btn btn-primary">Log in</button>
+            <button onClick={() => Register(email, password, givenName, familyName)} className="btn btn-primary">Register</button>
         </div>        
         {error} <br/>
         <center>

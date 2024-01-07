@@ -198,6 +198,19 @@ body {
     margin-bottom: 10px;
 }
 
+.login-form textarea {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.login-form select {
+    width: 300px;
+    margin-bottom: 10px;
+}
+.login-form button {
+    margin-bottom: 10px;
+}
+
 .google-button {
     width: 165px;
 }
@@ -445,3 +458,112 @@ body {
 .profile-view a:hover {
     background-color: lightgray;
 }
+
+.admin-panel {
+    height: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 10px;
+    padding: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-right: 10px;
+}
+
+.admin-panel a {
+    text-decoration: none;
+    color: black;
+}
+
+.admin-panel li {
+    margin-top: 25px;
+    margin-bottom: 25px;
+    list-style: none;
+    padding: 15px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: lightgray;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.admin-panel ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    
+}
+
+.admin-panel li.active {
+    background-color: #c7c7c7;
+}
+
+.admin-panel li:hover {
+    background-color: lightgray;
+}
+
+.admin-table th{
+    
+    text-align: center;
+}
+
+.first-row th {
+    vertical-align: top;
+}
+
+.admin-price {
+    width: 100px;
+}
+
+.admin-description {
+    width: 900px;
+}
+
+.admin-category {
+    width: 150px;
+}
+
+.admin-table button {
+    width: 100px;
+}
+
+.admin-table a {
+    width: 100px;
+}
+
+table.admin-table tr:nth-child(1),
+table.admin-table tr:nth-child(2) {
+  border-bottom: 1px solid lightgray; /* Apply bottom border to first and second rows */
+}
+
+table.admin-table tr:nth-child(2n) {
+    background-color: #fafafa; /* Apply bottom border to first and second rows */
+  }
+  
+
+.admin-review-table th{    
+    text-align: center;
+}
+
+.admin-review-table button {
+    width: 100px;
+}
+
+.admin-review-table a {
+    width: 100px;
+}
+
+table.admin-review-table tr:nth-child(1) {
+  border-bottom: 1px solid lightgray; /* Apply bottom border to first and second rows */
+  margin-bottom: 10px;
+}
+
+table.admin-review-table tr:nth-child(2n) {
+    background-color: #fafafa; /* Apply bottom border to first and second rows */
+  }

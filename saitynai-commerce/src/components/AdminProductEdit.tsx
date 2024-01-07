@@ -81,7 +81,7 @@ export default function AdminProduct(props: any) {
     }, [])
     
     return <>
-        <div className="admin-edit">
+        <div className="login-form">
             <a>{id}</a>
 
             <input value={name} className="form-control" onChange={ev => setName(ev.target.value)}></input>

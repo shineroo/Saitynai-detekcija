@@ -92,15 +92,21 @@ export default function AdminProducts() {
 
     const totalPages = Math.ceil(productCount / 12); 
     const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
-    const loopWithCurlyBraces = pageNumbers.map((pageNumber) => {
-        return <a href={window.location.pathname + `?page=${pageNumber}`}>{pageNumber}</a>;
-      });
+    const loopWithCurlyBraces = pageNumbers.map((pageNumber) => {        
+        return <li className='page-item'><a href={window.location.pathname + `?page=${pageNumber}`} className='page-link'>{pageNumber}</a></li>;
+    
+    
+    });
     
     return <>
         {path[3] == null &&
             <>
             <h1>Products</h1>
-            {loopWithCurlyBraces}
+            <div className='catalog-pages'>
+                <ul className="pagination">
+                    {loopWithCurlyBraces}
+                </ul>
+            </div>
             <table className="admin-table table">
                 <tr>
                     <th>id</th>
@@ -112,21 +118,21 @@ export default function AdminProducts() {
                     <th>#</th>
                     <th>#</th>
                 </tr>            
-                <tr>
-                    <th>create new</th>
-                    <th>
-                        <input value={image} className="form-control admin-image" onChange={ev => setImage(ev.target.value)}></input>
+                <tr className="first-row">
+                    <th >create new</th>
+                    <th className="admin-image">
+                        <input value={image} className="form-control" onChange={ev => setImage(ev.target.value)}></input>
                     </th>
-                    <th>
-                        <input value={name} className="form-control admin-name" onChange={ev => setName(ev.target.value)}></input>
+                    <th className="admin-name">
+                        <input value={name} className="form-control" onChange={ev => setName(ev.target.value)}></input>
                     </th>
-                    <th>
-                        <textarea value={description} className="form-control admin-description" onChange={ev => setDescription(ev.target.value)}></textarea>
+                    <th className="admin-description">
+                        <textarea value={description} className="form-control" onChange={ev => setDescription(ev.target.value)} style={{height: 42}}></textarea>
                     </th>
-                    <th>
-                        <input value={price} className="form-control admin-price" type="number" onChange={ev => setPrice(parseFloat(ev.target.value))}></input>
+                    <th className="admin-price">
+                        <input value={price} className="form-control" type="number" onChange={ev => setPrice(parseFloat(ev.target.value))}></input>
                     </th>
-                    <th>
+                    <th className="admin-category">
                         <select value={category} className="form-select" onChange={ev => setCategory(ev.target.value)}>
                             {categories.map((categor) => (
                                 <option value={categor.id}>
@@ -159,7 +165,11 @@ export default function AdminProducts() {
                         />
                     ))}
             </table>
-            {loopWithCurlyBraces}
+            <div className='catalog-pages'>
+                <ul className="pagination">
+                    {loopWithCurlyBraces}
+                </ul>
+            </div>
             </>
         }
         { path[3] != null &&

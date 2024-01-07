@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Category, Review } from "../types/types";
+import Modal from 'react-bootstrap/Modal';
 
 export default function AdminCategory(props: Review) {
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     
-    const apiUrl = 'http://localhost:8080/api/categories';
+    const apiUrl = 'http://localhost:8080/api/reviews';
 
     const handleApiCall = async (method: string, urlExtension = '', bodyData: { name: string,} | null = null) => {
         try {
@@ -45,10 +49,21 @@ export default function AdminCategory(props: Review) {
                 {props.rating}
             </th>
             <th>
-                <button className="btn btn-danger" onClick={() => 
-                    handleApiCall('DELETE', `${props.id}`)}>Delete
-                </button>
+                <button className="btn btn-danger" onClick={handleShow}>Delete</button>
             </th>
         </tr>
+
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You're about to delete this review!</Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-primary" onClick={handleClose}>Back</button>
+          <button className="btn btn-danger" onClick={() => 
+            handleApiCall('DELETE', `${props.id}`)}>Delete
+        </button>
+        </Modal.Footer>
+      </Modal>
     </>
 }

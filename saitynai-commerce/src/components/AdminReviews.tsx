@@ -27,8 +27,8 @@ export default function AdminReviews() {
 
     
     return <>
-        <h1>Categories</h1>
-        <table className="admin-table table">
+        <h1>Reviews</h1>
+        <table className="admin-review-table table">
             <tr>
                 <th>id</th>
                 <th>author</th>
