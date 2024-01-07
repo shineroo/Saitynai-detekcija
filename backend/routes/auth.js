@@ -14,11 +14,14 @@ router.post('/login', async function (req, res, next) {
 
     if (rows.length === 0) {
         data = 'Incorrect login details';
+        return res.status(404).json("incorrect login details");
     } else {
         data = rows;
     }
 
-    return res.json({data});
+    token = jwt.sign({ data }, "secret", { algorithm: 'HS256'});
+
+    return res.json({data, token});
 });
 
 router.post('/register', async function (req, res, next) {
@@ -60,10 +63,10 @@ router.get('/', (req, res) => {
     try {
         const decoded = jwt.verify(token.split(" ")[1], "secret");
         console.log(`looks good. role: ${decoded.role}`)
-        res.json({ authenticated: true, role: decoded.role, name: decoded.name, picture: decoded.picture });
+        return res.json({ authenticated: true, role: decoded.role, name: decoded.name, picture: decoded.picture });
     } catch (error) {
         console.log("what a moron. " + error)
-        res.json({ authenticated: false });
+        return res.json({ authenticated: false });
     }
     
 });

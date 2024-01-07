@@ -45,11 +45,12 @@ export default function ProductPage(props: any) {
 
     function reviewAverage() {
         var total = 0;
-        const reviewCount = reviews.length
+        const reviewCount = reviews.length;
         reviews.forEach((review) => {
             total += review.rating;
         });
-        return total / reviewCount;
+        const average = total / reviewCount;
+        return parseFloat(average.toFixed(2)); // Convert to float with 2 decimal places
     }
 
     return <>

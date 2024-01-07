@@ -16,6 +16,7 @@ export default function AdminCategory(props: Review) {
             method: method, // GET, PUT, POST, DELETE
             headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage['token']}`
             },
             body: bodyData ? JSON.stringify(bodyData) : null, // null if null, json stringified if not.
         };

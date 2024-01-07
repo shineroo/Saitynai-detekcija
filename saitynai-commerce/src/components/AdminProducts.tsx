@@ -11,7 +11,7 @@ export default function AdminProducts() {
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("1");
     
     const [page, setPage] = useState(1);
     const [productCount, setProductCount] = useState(0);
@@ -72,6 +72,7 @@ export default function AdminProducts() {
                 method: method, // GET, PUT, POST, DELETE
                 headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage['token']}`
                 },
                 body: bodyData ? JSON.stringify(bodyData) : null, // null if null, json stringified if not.
             };

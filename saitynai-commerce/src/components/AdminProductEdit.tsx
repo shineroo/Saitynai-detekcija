@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Category, Product } from "../types/types";
+import { Modal } from "react-bootstrap";
 
 export default function AdminProduct(props: any) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [categories, setCategories] = useState<Category[]>([]);
     const [name, setName] = useState(props.name)
     const [image, setImage] = useState(props.image)
@@ -24,6 +30,7 @@ export default function AdminProduct(props: any) {
             method: method, // GET, PUT, POST, DELETE
             headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage['token']}`
             },
             body: bodyData ? JSON.stringify(bodyData) : null, // null if null, json stringified if not.
         };
@@ -34,9 +41,10 @@ export default function AdminProduct(props: any) {
     
         if (!response.ok) {
             throw new Error('Network response was not ok');
+        } {
+            handleShow();
         }
-    
-        window.location.reload()
+        
         } catch (error) {
         console.error('Error:', error);
         }
@@ -45,13 +53,15 @@ export default function AdminProduct(props: any) {
     const path = window.location.pathname.split("/");
 
     useEffect(() => {
-        const fetchCategory = async () => {
+        const fetchProduct= async () => {
             try {
                 const response = await fetch(`http://localhost:8080/api/products/${path[3]}`);
                 if (!response.ok) {
                     throw new Error('response was not ok');
                 }
+                
                 const data = await response.json();
+                console.log(data.data[0])
                 // holy fucking shit im retarded (and on a tight deadline)
                 setName(data.data[0].name);
                 setDescription(data.data[0].description);
@@ -60,7 +70,7 @@ export default function AdminProduct(props: any) {
                 setCategory(data.data[0].fk_category);
                 setId(data.data[0].id)
             } catch (error) {
-                console.error('admin - error fetching category: ', error);
+                console.error('admin - error fetching fetchProduct: ', error);
             }
         }
 
@@ -77,13 +87,11 @@ export default function AdminProduct(props: any) {
             }
         }
         fetchCategories();
-        fetchCategory();
+        fetchProduct();
     }, [])
     
     return <>
         <div className="login-form">
-            <a>{id}</a>
-
             <input value={name} className="form-control" onChange={ev => setName(ev.target.value)}></input>
 
             <textarea value={description} className="form-control" onChange={ev => setDescription(ev.target.value)}></textarea>
@@ -110,11 +118,17 @@ export default function AdminProduct(props: any) {
                 })}>Update
             </button>
 
-            <button className="btn btn-danger" onClick={() => 
-                handleApiCall('DELETE', `${props.id}`)}>Delete
-            </button>
-
             <a href="/admin/products" className="btn btn-primary">Back</a>
         </div>
+
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Product updated</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Yay!</Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-primary" onClick={handleClose}>Back</button>
+        </Modal.Footer>
+      </Modal>
     </>
 }

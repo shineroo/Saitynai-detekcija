@@ -1,7 +1,13 @@
 import { useEffect, useState } from "react";
 import { Category, Product } from "../types/types";
+import { Modal } from "react-bootstrap";
 
 export default function AdminProduct(props: Product) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const [category, setCategory] = useState("")
     
     const apiUrl = 'http://localhost:8080/api/products';
@@ -19,6 +25,7 @@ export default function AdminProduct(props: Product) {
             method: method, // GET, PUT, POST, DELETE
             headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage['token']}`
             },
             body: bodyData ? JSON.stringify(bodyData) : null, // null if null, json stringified if not.
         };
@@ -78,10 +85,21 @@ export default function AdminProduct(props: Product) {
                 <a className="btn btn-warning" href={href}>Edit</a>
             </th>
             <th>
-                <button className="btn btn-danger" onClick={() => 
-                    handleApiCall('DELETE', `${props.id}`)}>Delete
-                </button>
+                <button className="btn btn-danger" onClick={handleShow}>Delete</button>
             </th>
         </tr>
+
+        <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure?</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>You're about to delete this product!</Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-primary" onClick={handleClose}>Back</button>
+          <button className="btn btn-danger" onClick={() => 
+            handleApiCall('DELETE', `${props.id}`)}>Delete
+        </button>
+        </Modal.Footer>
+      </Modal>
     </>
 }

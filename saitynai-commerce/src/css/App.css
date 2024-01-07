@@ -195,19 +195,23 @@ body {
 
 .login-form input {
     width: 300px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .login-form textarea {
     width: 300px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .login-form select {
     width: 300px;
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .login-form button {
+    margin-top: 10px;
+}
+.login-form a {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 

@@ -14,7 +14,7 @@ export default function Footer() {
                     <div className="col-sm-6 col-md-3 item">
                         <h3>About</h3>
                         <ul>
-                            <li><a href="/contacs">Contact Us</a></li>
+                            <li><a href="/contacts">Contact Us</a></li>
                             <li><a href="/privacy">Privacy Policy</a></li>
                         </ul>
                     </div>

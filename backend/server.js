@@ -38,7 +38,7 @@ app.use("/api/request", requestRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", usersRouter);
 
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.send('Backend server is running');
 });
 
@@ -55,6 +55,7 @@ app.get('/api/authenticated', (req, res) => {
     try {
         const decoded = jwt.verify(token.split(" ")[1], "secret");
         console.log(`looks good. role: ${decoded.role}`)
+        console.log(decoded)
         res.json({ authenticated: true, role: decoded.role, name: decoded.name, picture: decoded.picture });
     } catch (error) {
         console.log("what a moron. " + error)

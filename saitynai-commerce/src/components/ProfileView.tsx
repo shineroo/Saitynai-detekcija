@@ -3,7 +3,7 @@ import { Userdata } from "../types/types"
 
 export default function ProfileView() {
     const [users, setUser] = useState<Userdata[]>([]);
-    const [googleAccount, setGoogleAccount] = useState(false);
+    const [googleAccount, setGoogleAccount] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -13,14 +13,13 @@ export default function ProfileView() {
             }
             
             const data = await response.json();
-            setUser(data.data);
+            if (data.data.length > 0) {
+                setUser(data.data);
+                setGoogleAccount(false);
+            }            
         }
 
-        if (localStorage['token'] == null) {
-            fetchUser();  
-        } else {
-            setGoogleAccount(true);
-        }
+        fetchUser(); 
               
     }, []) 
 

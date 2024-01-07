@@ -12,7 +12,7 @@ export default function ProductThumbnail(props: Product) {
             <div>
                 <b><p>{name}</p></b>
                 <p>{price}$</p>
-                <a href={href}>BUY NOW!</a>
+                <a href={href}>View Product</a>
             </div>
         </div>
     </>

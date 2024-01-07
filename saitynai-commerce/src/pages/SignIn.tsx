@@ -34,6 +34,7 @@ export default function SignIn() {
             localStorage['picture'] = data.picture;
             localStorage['role'] = data.role;
             localStorage['id'] = data.id;
+            localStorage['token'] = response_data.token;
 
             window.location.href = "/";
         }
