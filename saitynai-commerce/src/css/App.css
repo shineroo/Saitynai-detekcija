@@ -6,8 +6,14 @@ button {
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('../Roboto-Medium.woff2') format('woff2');
+  }
+
 body {
     margin: 0;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .navvy {
